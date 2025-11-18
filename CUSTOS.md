@@ -419,7 +419,6 @@ Melhor: Use ambiente serverless ou otimize arquitetura
 
 ## 📞 Tem Dúvidas sobre Custos?
 
-- Abra uma [Issue no GitHub](https://github.com/jlui70/eks-keda-karpenter-lab/issues)
 - Consulte [AWS Pricing Calculator](https://calculator.aws/)
 - Veja [AWS Cost Management](https://aws.amazon.com/aws-cost-management/)
 
