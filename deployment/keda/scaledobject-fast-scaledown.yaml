@@ -1,0 +1,52 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: ecommerce-ui-http-traffic-scaler
+  namespace: ecommerce
+spec:
+  scaleTargetRef:
+    name: ecommerce-ui
+  minReplicaCount: 2
+  maxReplicaCount: 20
+  pollingInterval: 5  # Verifica métricas a cada 5 segundos
+  cooldownPeriod: 30  # Aguarda 30s após última atividade antes de scale-down
+  
+  # ⭐ CONFIGURAÇÃO AVANÇADA DE SCALE-DOWN ⭐
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleDown:
+          stabilizationWindowSeconds: 30  # REDUZIDO! Era 300s (5 min), agora 30s!
+          policies:
+          - type: Percent
+            value: 50  # Remove até 50% dos pods por vez
+            periodSeconds: 15  # A cada 15 segundos
+          - type: Pods
+            value: 5  # OU remove 5 pods por vez
+            periodSeconds: 15  # A cada 15 segundos
+          selectPolicy: Max  # Escolhe a política que remove MAIS pods (mais agressivo)
+        scaleUp:
+          stabilizationWindowSeconds: 0  # Scale-up IMEDIATO!
+          policies:
+          - type: Percent
+            value: 100  # Dobra número de pods
+            periodSeconds: 15  # A cada 15 segundos
+          - type: Pods
+            value: 10  # OU adiciona 10 pods por vez
+            periodSeconds: 15
+          selectPolicy: Max  # Escolhe a política que adiciona MAIS pods
+  
+  triggers:
+  # CPU Trigger
+  - type: cpu
+    metricType: Utilization
+    metadata:
+      value: "15"
+      containerName: ecommerce-ui
+  
+  # Memory Trigger
+  - type: memory
+    metricType: Utilization
+    metadata:
+      value: "20"
+      containerName: ecommerce-ui

@@ -1,0 +1,173 @@
+# Backups e arquivos temporários
+*.tar.gz
+*.zip
+*backup*/
+cluster-state-backup/
+*.bak
+*.old
+
+# Jupyter Notebooks
+*.ipynb
+.ipynb_checkpoints/
+jupyter-env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+
+# Credenciais e Segredos (IMPORTANTE!)
+*credentials*
+*secret*
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.crt
+
+# AWS
+.aws/
+
+# Arquivos temporários
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Documentos de trabalho (não vão para Git)
+ACESSO-*.md
+AJUSTE-*.md
+ANALISE-*.md
+APRESENTACAO-*.md
+ATUALIZAR-*.md
+BACKUP-*.md
+CHECKLIST-*.md
+COMECE-*.md
+CONFIGURACAO-*.md
+CONFIRMACAO-*.md
+CONFLITO-*.md
+CORRECAO-*.md
+COST-ANALYSIS.md
+DASHBOARD-*.md
+DECISAO-*.md
+DEMO-*.md
+DEPLOY-*.md
+DIAGNOSTICO-*.md
+EXPLICACAO-*.md
+FASE*.md
+FIX-*.md
+GRAFANA-*.md
+GUIA-APRESENTACAO-*.md
+GUIA-MESTRE-*.md
+GUIA-RESTAURACAO-*.md
+HTTP-SCALING-*.md
+IMPORTAR-*.md
+INDICE-*.md
+INVESTIGACAO-*.md
+K9S-*.md
+MANUAL-*.md
+MAPEAMENTO-*.md
+NOVO-*.md
+ONDE-*.md
+OTIMIZACAO-*.md
+PLANO-*.md
+PRESENTATION-*.md
+PREVISAO-*.md
+PROBLEMA-*.md
+RESUMO-*.md
+ROTEIRO-*.md
+SCALE-*.md
+SCRIPTS-*.md
+SOLUCAO-*.md
+TESTE-*.md
+PROPOSTA-*.md
+
+# Scripts de desenvolvimento (não vão para Git)
+demo-*.sh
+fix-*.sh
+gif-*.sh
+deploy-sqs-ecr.sh
+deploy-sqs-local.sh
+docker-demo.sh
+improved-*.sh
+multi-trigger-*.sh
+quick-*.sh
+simple-*.sh
+smart-*.sh
+start-presentation.sh
+shutdown-*.sh
+restore-production-state.sh
+presentation-kit/
+
+# App ecommerce (não faz parte do core)
+app\ ecommerce/
+ecommerce-*/
+
+# YAMLs de desenvolvimento
+deployment-high-resources.yaml
+scaledobject-40pods.yaml
+scaledobject-aggressive.yaml
+scaledobject-cpu-http-traffic.yaml
+scaledobject-option-*.yaml
+httpscaledobject-ecommerce-ui.yaml
+ingress-original-backup.yaml
+ecommerce-ui-fix.yaml
+grafana-ingress.yaml

@@ -1,0 +1,59 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ecommerce-services
+  namespace: ecommerce
+  labels:
+    app: ecommerce
+    prometheus: monitoring-kube-prometheus-prometheus
+spec:
+  selector:
+    matchLabels:
+      app: ecommerce-ui
+  endpoints:
+  - port: http
+    interval: 30s
+    path: /metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: ecommerce-backend-services
+  namespace: ecommerce
+  labels:
+    app: ecommerce
+    prometheus: monitoring-kube-prometheus-prometheus
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - product-catalog
+      - order-management
+      - product-inventory
+      - profile-management
+      - shipping-and-handling
+      - contact-support-team
+  endpoints:
+  - port: http
+    interval: 30s
+    path: /metrics
+---
+# ServiceMonitor para nginx-ingress (para métricas HTTP)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: nginx-ingress-controller
+  namespace: kube-system
+  labels:
+    app: nginx-ingress-controller
+    prometheus: monitoring-kube-prometheus-prometheus
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ingress-nginx
+  endpoints:
+  - port: metrics
+    interval: 30s
+    path: /metrics

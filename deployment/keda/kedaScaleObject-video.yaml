@@ -1,0 +1,67 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: aws-sqs-queue-scaledobject
+  namespace: keda-test
+  annotations:
+    autoscaling.keda.sh/paused: "false"
+spec:
+  scaleTargetRef:
+    name: sqs-app
+  minReplicaCount: 1
+  maxReplicaCount: 2000
+  
+  # ⚡ POLLING ACELERADO - Verifica a cada 5 segundos (padrão: 30s)
+  pollingInterval: 5
+  
+  # ⚡ COOLDOWN ACELERADO - Aguarda 5s antes de scale-down (padrão: 10s)
+  cooldownPeriod: 5
+  
+  # 🎥 COMPORTAMENTO OTIMIZADO PARA VÍDEO
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleDown:
+          # ⚡ ESTABILIZAÇÃO RÁPIDA - Decisão em 15s (padrão: 300s = 5 minutos!)
+          stabilizationWindowSeconds: 15
+          
+          # ⚡ POLÍTICAS AGRESSIVAS DE SCALE-DOWN
+          policies:
+          # Permite remover 100% dos pods a cada 15 segundos
+          - type: Percent
+            value: 100
+            periodSeconds: 15
+          
+          # OU remove 50 pods de uma vez (o que for maior)
+          - type: Pods
+            value: 50
+            periodSeconds: 15
+          
+          # Max = mais agressivo (remove o máximo possível)
+          selectPolicy: Max
+        
+        scaleUp:
+          # Scale-up também rápido para o vídeo ficar dinâmico
+          stabilizationWindowSeconds: 0
+          policies:
+          # Permite adicionar 100% dos pods a cada 10 segundos
+          - type: Percent
+            value: 100
+            periodSeconds: 10
+          
+          # OU adiciona 50 pods de uma vez
+          - type: Pods
+            value: 50
+            periodSeconds: 10
+          
+          selectPolicy: Max
+  
+  triggers:
+  - type: aws-sqs-queue
+    authenticationRef:
+      name: keda-aws-credentials
+    metadata:
+      queueURL: https://sqs.us-east-1.amazonaws.com/794038226274/keda-demo-queue.fifo
+      queueLength: "2"
+      awsRegion: us-east-1
+      identityOwner: operator
