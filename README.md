@@ -252,8 +252,6 @@ cd tests
 4. Karpenter adiciona nós conforme necessário
 5. Scale-down gradual quando tráfego diminui
 
-📚 **Guia completo de testes:** [docs/06-testes-scaling.md](docs/06-testes-scaling.md)
-
 ---
 
 ## 📊 Monitoramento
